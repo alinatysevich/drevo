@@ -32,6 +32,20 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public void buy(int basketId) {
+        Session session = this.getSession();
+
+        Basket basket = (Basket) entityManager
+                .createQuery("from Basket b where b.id = :basketId")
+                .setParameter("basketId", basketId)
+                .getResultList().stream().findFirst().orElse(null);
+
+        basket.setPending(true);
+
+        session.update(basket);
+    }
+
+    @Override
     public void complete(int basketId) {
         Session session = this.getSession();
 

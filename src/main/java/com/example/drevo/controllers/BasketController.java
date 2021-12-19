@@ -2,12 +2,14 @@ package com.example.drevo.controllers;
 
 import com.example.drevo.auth.UserDetailsImpl;
 import com.example.drevo.entities.*;
+import com.example.drevo.services.OrderServiceImpl;
 import com.example.drevo.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -17,9 +19,18 @@ public class BasketController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private OrderServiceImpl orderService;
+
     @GetMapping
     public String get() {
         return "basket";
+    }
+
+    @PostMapping(value = "/buy/{id}")
+    String buy(HttpServletRequest request, @PathVariable int id) {
+        orderService.buy(id);
+        return "redirect:" + request.getHeader("Referer");
     }
 
     @ModelAttribute("user")

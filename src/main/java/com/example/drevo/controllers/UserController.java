@@ -27,8 +27,9 @@ public class UserController {
     }
 
     @PostMapping
-    void post(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute("address") Address address) {
+    String post(@AuthenticationPrincipal UserDetailsImpl userDetails, @ModelAttribute("address") Address address) {
         userService.setAddress(userDetails.getUser(), address);
+        return "redirect:user";
     }
 
     @ModelAttribute("countries")
@@ -36,9 +37,20 @@ public class UserController {
         return countryRepository.getCountries();
     }
 
+    @ModelAttribute("rawAddress")
+    public Address getRawAddress(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.getAddress(userDetails.getUser());
+    }
+
     @ModelAttribute("address")
     public Address getAddress(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return userService.getAddress(userDetails.getUser());
+        Address address = this.getRawAddress(userDetails);
+
+        if (address == null) {
+            return new Address();
+        }
+
+        return address;
     }
 
     @ModelAttribute("user")

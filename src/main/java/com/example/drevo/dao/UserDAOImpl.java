@@ -33,19 +33,20 @@ public class UserDAOImpl implements UserDAO {
         return (Address) entityManager
             .createQuery("from Address a where a.user.id = :user")
             .setParameter("user", user.getId())
-            .getResultList().get(0);
+            .getResultList().stream().findFirst().orElse(null);
     }
 
     @Override
     public void setAddress(User user, Address address) {
         Session session = this.getSession();
+        address.setUser(user);
         session.saveOrUpdate(address);
     }
 
     @Override
     public List<Basket> getOrders(User user) {
         return entityManager
-            .createQuery("from Basket b where b.completed = true and b.user.id = :user")
+            .createQuery("from Basket b where b.pending = true and b.user.id = :user")
             .setParameter("user", user.getId())
             .getResultList();
     }
@@ -53,7 +54,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Basket getBasket(User user) {
         return (Basket) entityManager
-            .createQuery("from Basket b where b.completed = false and b.user.id = :user")
+            .createQuery("from Basket b where b.completed = false and b.pending = false and b.user.id = :user")
             .setParameter("user", user.getId())
             .getResultList().stream().findFirst().orElse(null); // https://stackoverflow.com/a/46344029
     }

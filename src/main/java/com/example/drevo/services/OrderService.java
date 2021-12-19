@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface OrderService {
     List<Basket> getNotCompletedOrders();
+    void buy(int basketId);
     void complete(int basketId);
 }
 

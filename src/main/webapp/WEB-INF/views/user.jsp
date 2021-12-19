@@ -57,6 +57,13 @@
                 </table>
             </form:form>
         </c:when>
+        <c:when test="${empty rawAddress}">
+            <h2><fmt:message key="address"/></h2>
+            <div>Please add an address</div>
+            <br />
+            <a href="?edit=true"><fmt:message key="edit"/></a>
+            <br /><br />
+        </c:when>
         <c:otherwise>
             <h2><fmt:message key="address"/></h2>
             <div><fmt:message key="zip.code"/>: ${address.zipCode}</div>
@@ -73,7 +80,7 @@
     <hr />
 
     <h2><fmt:message key="order.history"/></h2>
-    <c:forEach var="basket" items="${orders}">
+    <c:forEach var="basket" items="${orders}" varStatus="status">
         <c:forEach var="basketItem" items="${basket.basketItems}">
             <div>
                 <h4>${basketItem.product.name}</h4>
@@ -84,6 +91,7 @@
                 <br /><br />
             </div>
         </c:forEach>
+        <c:if test="${!status.last}"><hr /></c:if>
     </c:forEach>
 
     <%@ include file = "./parts/footer.jsp" %>

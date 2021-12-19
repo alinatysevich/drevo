@@ -7,6 +7,8 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="messages" />
 
+<fmt:message key="order" var="order" />
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -41,6 +43,12 @@
                     <c:if test="${!status.last}"><hr /></c:if>
                 </div>
             </c:forEach>
+
+            <br />
+
+            <form:form method="post" action="/basket/buy/${basket.id}">
+                <input type="submit" value="${order}" />
+            </form:form>
         </c:otherwise>
     </c:choose>
 

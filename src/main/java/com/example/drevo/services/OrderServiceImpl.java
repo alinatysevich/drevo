@@ -23,6 +23,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void buy(int basketId) {
+        orderDAO.buy(basketId);
+    }
+
+    @Override
     public void complete(int basketId) {
         orderDAO.complete(basketId);
     }

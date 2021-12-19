@@ -19,6 +19,9 @@ public class Basket {
     private boolean completed;
 
     @Column
+    private boolean pending;
+
+    @Column
     @CreationTimestamp
     private Date date;
 
@@ -73,5 +76,13 @@ public class Basket {
 
     public void setBasketItems(List<BasketItem> basketItems) {
         this.basketItems = basketItems;
+    }
+
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
     }
 }

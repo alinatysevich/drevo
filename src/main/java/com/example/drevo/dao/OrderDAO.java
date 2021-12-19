@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface OrderDAO {
     List<Basket> getNotCompletedOrders();
+    void buy(int basketId);
     void complete(int basketId);
 }
 

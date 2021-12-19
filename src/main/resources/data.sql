@@ -33,8 +33,8 @@ INSERT INTO product (id, name, care, filling, image_url, price, delivery_days, c
 (DEFAULT, 'Botanika', 'Not necessary', 'Moss', 'https://i.imgur.com/qNBnyWY.jpg', 85, 1, 'OTHER', 'WOOD_EPOXY'),
 (DEFAULT, 'Oblepiha', 'Do not wash', '-', 'https://i.imgur.com/KWOdl0G.jpg', 65, 1, 'OTHER', 'WOOD');
 
-INSERT INTO basket (id, completed, date, user_id) VALUES
-(DEFAULT, true, '2021-09-20', '1');
+INSERT INTO basket (id, completed, pending, date, user_id) VALUES
+(DEFAULT, true, false, '2021-09-20', '1');
 
 INSERT INTO basket_item (id, quantity, basket_id, product_id) VALUES
 (DEFAULT, '2', '1', '2'),
